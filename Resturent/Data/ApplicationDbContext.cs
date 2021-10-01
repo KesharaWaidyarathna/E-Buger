@@ -19,5 +19,6 @@ namespace Resturent.Data
         public DbSet<SubCategory> SubCategory { get; set; }
 
         public DbSet<MenuItem> MenuItems { get; set; }
+        public DbSet<Coupon> Coupon { get; set; }
     }
 }
