@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Hosting;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Hosting;
@@ -14,6 +15,7 @@ using System.Threading.Tasks;
 
 namespace Restaurent.Areas.Admin.Controllers
 {
+    [Authorize(Roles = SD.ManagerUser)]
     [Area("Admin")]
     public class MenuItemController : Controller
     {

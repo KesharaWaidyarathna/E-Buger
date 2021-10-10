@@ -84,6 +84,7 @@ namespace Resturent.Areas.Identity.Pages.Account
 
         public async Task<IActionResult> OnPostAsync(string returnUrl = null)
         {
+            string role = Request.Form["rdUserRole"].ToString();
             returnUrl = returnUrl ?? Url.Content("~/");
             ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
             if (ModelState.IsValid)
@@ -95,7 +96,8 @@ namespace Resturent.Areas.Identity.Pages.Account
                     StreetAddress = Input.StreetAddress,
                     State = Input.State,
                     PostalCode = Input.PostalCode,
-                    PhoneNumber = Input.PhoneNumber
+                    PhoneNumber = Input.PhoneNumber,
+                    Name = Input.Name
                 };
                 var result = await _userManager.CreateAsync(user, Input.Password);
                 if (result.Succeeded)
@@ -119,8 +121,24 @@ namespace Resturent.Areas.Identity.Pages.Account
                         await _roleManger.CreateAsync(new IdentityRole(SD.CustomerEndUser));
                     }
 
-                    await _userManager.AddToRoleAsync(user, SD.ManagerUser);
+                    switch (role)
+                    {
+                        case SD.KitchenUser:
+                            await _userManager.AddToRoleAsync(user, SD.KitchenUser);
+                            break;
+                        case SD.ManagerUser:
+                            await _userManager.AddToRoleAsync(user, SD.ManagerUser);
+                            break;
+                        case SD.FrontDeskUser:
+                            await _userManager.AddToRoleAsync(user, SD.FrontDeskUser);
+                            break;
+                        case SD.CustomerEndUser:
+                            await _userManager.AddToRoleAsync(user, SD.CustomerEndUser);
+                            await _signInManager.SignInAsync(user, isPersistent: false);
+                            return LocalRedirect(returnUrl);
+                    }
 
+                    return RedirectToAction("Index", "User", new { area = "Admin"});
                     //var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
                     //code = WebEncoders.Base64UrlEncode(Encoding.UTF8.GetBytes(code));
                     //var callbackUrl = Url.Page(
@@ -138,8 +156,7 @@ namespace Resturent.Areas.Identity.Pages.Account
                     }
                     else
                     {
-                        await _signInManager.SignInAsync(user, isPersistent: false);
-                        return LocalRedirect(returnUrl);
+                        
                     }
                 }
                 foreach (var error in result.Errors)

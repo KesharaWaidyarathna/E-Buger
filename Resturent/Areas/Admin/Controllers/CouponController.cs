@@ -1,6 +1,8 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Restaurent.Models;
+using Restaurent.Utility;
 using Resturent.Data;
 using System;
 using System.Collections.Generic;
@@ -10,6 +12,7 @@ using System.Threading.Tasks;
 
 namespace Restaurent.Areas.Admin.Controllers
 {
+    [Authorize(Roles = SD.ManagerUser)]
     [Area("Admin")]
     public class CouponController : Controller
     {
