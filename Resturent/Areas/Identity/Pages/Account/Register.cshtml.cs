@@ -89,10 +89,11 @@ namespace Resturent.Areas.Identity.Pages.Account
             ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
             if (ModelState.IsValid)
             {
-                var user = new ApplicationUser { 
-                    UserName = Input.Email, 
+                var user = new ApplicationUser
+                {
+                    UserName = Input.Email,
                     Email = Input.Email,
-                    City= Input.City,
+                    City = Input.City,
                     StreetAddress = Input.StreetAddress,
                     State = Input.State,
                     PostalCode = Input.PostalCode,
@@ -104,7 +105,7 @@ namespace Resturent.Areas.Identity.Pages.Account
                 {
                     _logger.LogInformation("User created a new account with password.");
 
-                    if(!await _roleManger.RoleExistsAsync(SD.ManagerUser))
+                    if (!await _roleManger.RoleExistsAsync(SD.ManagerUser))
                     {
                         await _roleManger.CreateAsync(new IdentityRole(SD.ManagerUser));
                     }
