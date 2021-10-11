@@ -230,7 +230,7 @@ namespace Resturent.Areas.Customers.Controllers
 
         public async Task<IActionResult> Plus(int cartId)
         {
-            var cart = await _db.ShoppingCart.FirstOrDefaultAsync(c => c.Id == cartId);
+            var cart = await _db.ShoppingCart.FirstOrDefaultAsync(x => x.Id == cartId);
             cart.Count += 1;
             await _db.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
@@ -238,13 +238,13 @@ namespace Resturent.Areas.Customers.Controllers
 
         public async Task<IActionResult> Minus(int cartId)
         {
-            var cart = await _db.ShoppingCart.FirstOrDefaultAsync(c => c.Id == cartId);
+            var cart = await _db.ShoppingCart.FirstOrDefaultAsync(x => x.Id == cartId);
             if (cart.Count == 1)
             {
                 _db.ShoppingCart.Remove(cart);
                 await _db.SaveChangesAsync();
 
-                var cnt = _db.ShoppingCart.Where(u => u.ApplicationUserId == cart.ApplicationUserId).ToList().Count;
+                var cnt = _db.ShoppingCart.Where(x => x.ApplicationUserId == cart.ApplicationUserId).ToList().Count;
                 HttpContext.Session.SetInt32(SD.ssShoppingCartCount, cnt);
             }
             else
