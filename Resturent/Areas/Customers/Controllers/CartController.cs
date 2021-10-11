@@ -131,6 +131,9 @@ namespace Resturent.Areas.Customers.Controllers
             detailCart.OrderHeader.UserId = claim.Value;
             detailCart.OrderHeader.Status = SD.PaymentStatusPending;
             detailCart.OrderHeader.PickUpTime = Convert.ToDateTime(detailCart.OrderHeader.PickUpDate.ToShortDateString() + " " + detailCart.OrderHeader.PickUpTime.ToShortTimeString());
+            string option = Request.Form["Doption"].ToString();
+            if (option == SD.Deilvery)
+                detailCart.OrderHeader.Delivery = true;
 
             List<OrderDetails> orderDetailsList = new List<OrderDetails>();
             _db.OrderHeader.Add(detailCart.OrderHeader);

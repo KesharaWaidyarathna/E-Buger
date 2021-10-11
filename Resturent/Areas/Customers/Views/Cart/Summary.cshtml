@@ -1,5 +1,6 @@
 ﻿@model Resturent.Models.ViewModels.OrderDetailsCart
 @using Microsoft.Extensions.Options
+@using Restaurent.Utility
 
 @inject IOptions<Restaurent.Utility.StripeSettings> Stripe
 
@@ -74,8 +75,8 @@
                                             <label>Option : </label>
                                         </div>
                                         <div class="col-9">
-                                            <input type="checkbox" name="rdUserRole" value="@Model.OrderHeader.Delivery" checked/> Delivery
-                                            <input type="checkbox"/> PickUp
+                                            <input type="checkbox" name="Doption" value="@SD.Deilvery" checked /> Delivery
+                                            <input type="checkbox" /> PickUp
                                         </div>
                                     </div>
                                 </div>
@@ -165,7 +166,7 @@
 
 
             $("#datepicker").datepicker({ minDate: minDt, maxDate: "+1W" });
-            $("#timepicker").timepicker({'minTime': '11:00 AM', 'maxTime': '9:00 PM', step: '30'})
+            $("#timepicker").timepicker({ 'minTime': '11:00 AM', 'maxTime': '9:00 PM', step: '30' })
         });
 
 

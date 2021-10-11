@@ -28,6 +28,8 @@ namespace Restaurent.Utility
         public const string PaymentStatusApproved = "Approved";
         public const string PaymentStatusRejected = "Rejected";
 
+        public const string Deilvery = "Deilivery";
+        public const string Pickup = "Pickup";
         public static string ConvertToRawHtml(string source)
         {
             char[] array = new char[source.Length];
