@@ -176,10 +176,27 @@ namespace Restaurent.Areas.Admin.Controllers
 
             return View(MenuItemVM);
         }
-
-        [HttpPost]
-        [ValidateAntiForgeryToken]
+        //GET : Delete MenuItem
         public async Task<IActionResult> Delete(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            MenuItemVM.MenuItem = await _db.MenuItems.Include(m => m.Category).Include(m => m.SubCategory).SingleOrDefaultAsync(m => m.Id == id);
+
+            if (MenuItemVM.MenuItem == null)
+            {
+                return NotFound();
+            }
+
+            return View(MenuItemVM);
+        }
+
+        [HttpPost, ActionName("Delete")]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> DeleteConfirmed(int? id)
         {
             string webRootPath = _webHostEnvironment.WebRootPath;
             MenuItem menuItem = await _db.MenuItems.FindAsync(id);

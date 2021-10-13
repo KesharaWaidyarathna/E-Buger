@@ -82,7 +82,7 @@ namespace Restaurent.Areas.Admin.Controllers
         public async Task<IActionResult> Edit(Coupon coupon)
         {
 
-            if (coupon.Id== null)
+            if (coupon.Id == null)
                 NotFound();
 
             var couponFromDb = await _db.Coupon.Where(c => c.Id == coupon.Id).FirstOrDefaultAsync();
