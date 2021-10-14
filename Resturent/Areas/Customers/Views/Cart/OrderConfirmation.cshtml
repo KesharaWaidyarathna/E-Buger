@@ -1,0 +1,14 @@
+﻿@model Resturent.Models.OrderHeader
+@{
+    ViewData["Title"] = "OrderConfirmation";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container row border ml-1 backgroundWhiteBorder10Padding" style="width:100%">
+    <div class="col-lg-8 col-12" style="border-right:1px solid #bbb9b9">
+        <label>Thanks @Model.PickupName ! The oreder made successfully 😍, Your order number : @Model.Id</label>
+    </div>
+    <div class="col-lg-4 col-12">
+        <a asp-action="Index" asp-area="Customers" asp-controller="Home" class="btn btn-info">Back to Home</a>
+    </div>
+</div>

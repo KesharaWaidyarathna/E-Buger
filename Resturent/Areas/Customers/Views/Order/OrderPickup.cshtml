@@ -37,7 +37,7 @@
 
         </div>
         <br />
-        <div>
+        <div id="orderpickup">
             @if (Model.Orders.Count() > 0)
             {
                 <table class="table table-striped border">
@@ -99,6 +99,8 @@
                 <p>No category exists...</p>
             }
         </div>
+        <br />
+        <button type="button" class="btn btn-success printtable">Print </button>
     </div>
 </form>
 
@@ -154,7 +156,17 @@
 
             });
 
+            $(".printtable").click(function () {
+                var restorepage = document.body.innerHTML;
+                var printcontent = document.getElementById("orderpickup").innerHTML;
+                document.body.innerHTML = printcontent;
+                window.print();
+                document.body.innerHTML = restorepage;
+            });
+
+
 
         });
+
     </script>
 }

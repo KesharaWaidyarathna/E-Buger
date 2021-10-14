@@ -58,8 +58,6 @@ namespace Resturent.Areas.Customers.Controllers
                 Orders = new List<OrderDetailsViewModel>()
             };
 
-
-
             List<OrderHeader> OrderHeaderList = await _db.OrderHeader.Include(o => o.ApplicationUser).Where(u => u.UserId == claim.Value).ToListAsync();
 
             foreach (OrderHeader item in OrderHeaderList)

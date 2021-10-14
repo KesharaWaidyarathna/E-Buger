@@ -206,10 +206,17 @@ namespace Resturent.Areas.Customers.Controllers
             }
 
             await _db.SaveChangesAsync();
-            return RedirectToAction("Index", "Home");
-
+            return RedirectToAction(nameof(OrderConfirmation));
         }
 
+        public async Task<IActionResult> OrderConfirmation()
+        {
+            var claimsIdentity = (ClaimsIdentity)User.Identity;
+            var claim = claimsIdentity.FindFirst(ClaimTypes.NameIdentifier);
+
+            OrderHeader orderHeader = await _db.OrderHeader.OrderByDescending(x => x.OrderDate).FirstOrDefaultAsync(x => x.UserId == claim.Value);
+            return View(orderHeader);
+        }
 
         public IActionResult AddCoupon()
         {

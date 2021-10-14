@@ -13,7 +13,7 @@
 
     </div>
     <br />
-    <div>
+    <div id="user">
         @if (Model.Count() > 0)
         {
             <table class="table table-striped border">
@@ -65,4 +65,24 @@
             <p>No category exists...</p>
         }
     </div>
+    <br />
+    <button type="button" class="btn btn-success printtable">Print </button>
 </div>
+
+@section scripts
+    {
+    <script>
+        $(function () {
+            $(".printtable").click(function () {
+                var restorepage = document.body.innerHTML;
+                var printcontent = document.getElementById("user").innerHTML;
+                document.body.innerHTML = printcontent;
+                window.print();
+                document.body.innerHTML = restorepage;
+            });
+
+
+        });
+
+    </script>
+}
