@@ -133,7 +133,7 @@ namespace Resturent.Areas.Identity.Pages.Account
                         case SD.FrontDeskUser:
                             await _userManager.AddToRoleAsync(user, SD.FrontDeskUser);
                             break;
-                        case SD.CustomerEndUser:
+                        default:
                             await _userManager.AddToRoleAsync(user, SD.CustomerEndUser);
                             await _signInManager.SignInAsync(user, isPersistent: false);
                             return LocalRedirect(returnUrl);
